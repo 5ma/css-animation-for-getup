@@ -1,9 +1,18 @@
 ---
+import { Image } from 'astro:assets';
 import Layout from '@/layouts/Layout.astro';
 import MovieThumbnailList from '@/components/MovieThumbnailList.astro';
+import jkImage from '@/images/getup_jk.jpg'
 ---
 
 <Layout>
+	<main class="container">
+		<div class="jk">
+			<Image
+				src={jkImage}
+				alt={"NewJeans 2nd EP 'Get Up'のジャケット画像"}
+			/>
+		</div>
 		<MovieThumbnailList />
 	</main>
 </Layout>
@@ -13,5 +22,11 @@ import MovieThumbnailList from '@/components/MovieThumbnailList.astro';
 		position: relative;
 		min-height: 100dvh;
 		// background: url('https://codelikes.com/wp-content/uploads/2022/04/melissa-keizer-2Qs3kvXGwjg-unsplash.jpg') no-repeat 50% / cover;
+	}
+	.jk {
+		position: absolute;
+		top: 15px;
+		left: 20px;
+		width: 150px;
 	}
 </style>
