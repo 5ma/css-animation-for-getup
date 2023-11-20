@@ -1,11 +1,17 @@
 ---
 import Layout from '@/layouts/Layout.astro';
+import MovieThumbnailList from '@/components/MovieThumbnailList.astro';
 ---
 
 <Layout>
-	<main>
+		<MovieThumbnailList />
 	</main>
 </Layout>
 
 <style lang="scss">
+	.container {
+		position: relative;
+		min-height: 100dvh;
+		// background: url('https://codelikes.com/wp-content/uploads/2022/04/melissa-keizer-2Qs3kvXGwjg-unsplash.jpg') no-repeat 50% / cover;
+	}
 </style>

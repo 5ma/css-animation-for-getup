@@ -1,0 +1,77 @@
+---
+import { Image } from "astro:assets"
+import { mvListData } from '@/constants/mv-list-data'
+
+interface Props {
+  class?: string
+}
+
+const { class: className } = Astro.props
+---
+
+<div class:list={["wrapper", className]}>
+  <div class="movie-select">
+    <ul class="movie-list">
+      {mvListData.map((mv) => (
+        <li class="movie-list__item">
+          <button class="movie-list__button" type="button" data-movie-id={mv.id}>
+            <span class="movie-list__title u-font-en">{mv.title}</span>
+            <span class="movie-list__thumb">
+              <Image
+                src={`http://img.youtube.com/vi/${mv.id}/maxresdefault.jpg`}
+                alt={`YouTube「${mv.fullTitle}」のサムネイル画像`}
+                width={1280}
+                height={720}
+              />
+            </span>
+          </button>
+        </li>
+      ))}
+    </ul>
+  </div>
+</div>
+
+<style lang="scss">
+  .wrapper {
+    position: fixed;
+    left: 50%;
+    bottom: 15px;
+    width: fit-content;
+    max-width: calc(100% - 30px);
+    padding: 10px 22px 25px;
+    background-color: rgb(var(--rgb-white) / 0.15);
+    backdrop-filter: blur(15px);
+    border-radius: 25px;
+    translate: -50% 0;
+  }
+  .movie-select {
+    width: 100%;
+    overflow: hidden;
+  }
+  .movie-list {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    list-style: none;
+  }
+  .movie-list__item {
+    position: relative;
+    width: 200px;
+  }
+  .movie-list__button {
+    display: block;
+    text-align: left;
+  }
+  .movie-list__title {
+    display: block;
+    padding-inline: 5px;
+    margin-bottom: 3px;
+  }
+  .movie-list__thumb {
+    position: relative;
+    z-index: 1;
+    display: block;
+    border-radius: 15px;
+    overflow: hidden;
+  }
+</style>
