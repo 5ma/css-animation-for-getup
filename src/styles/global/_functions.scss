@@ -1,0 +1,11 @@
+@use 'sass:math';
+
+@function px-to-rem($pixels, $baseFontSize: 16) {
+  @return math.div($pixels, $baseFontSize) * 1rem;
+}
+
+@function get-vw($size, $viewport:1400) {
+  $rate: math.div(100, $viewport);
+
+  @return $rate * $size * 1vw;
+}

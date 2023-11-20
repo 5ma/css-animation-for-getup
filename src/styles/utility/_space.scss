@@ -1,0 +1,62 @@
+@use '@/styles/global/' as *;
+
+// px 単位での padding, margin 調整用class
+// 指定するmarginの範囲を定義
+$adjust-min: 5;
+$adjust-max: 150;
+
+@for $i from $adjust-min through $adjust-max {
+  .u-mt-#{$i} {
+    margin-top: #{$i}px !important;
+  }
+
+  .u-mb-#{$i} {
+    margin-bottom: #{$i}px !important;
+  }
+
+  .u-pt-#{$i} {
+    padding-top: #{$i}px !important;
+  }
+
+  .u-pb-#{$i} {
+    padding-bottom: #{$i}px !important;
+  }
+
+  // SP用class
+  @include sp {
+    .u-mt-sp-#{$i} {
+      margin-top: #{$i}px !important;
+    }
+
+    .u-mb-sp-#{$i} {
+      margin-bottom: #{$i}px !important;
+    }
+
+    .u-pt-sp-#{$i} {
+      padding-top: #{$i}px !important;
+    }
+
+    .u-pb-sp-#{$i} {
+      padding-bottom: #{$i}px !important;
+    }
+  }
+
+  // PC用class
+  @include pc {
+    .u-mt-pc-#{$i} {
+      margin-top: #{$i}px !important;
+    }
+
+    .u-mb-pc-#{$i} {
+      margin-bottom: #{$i}px !important;
+    }
+
+    .u-pt-pc-#{$i} {
+      padding-top: #{$i}px !important;
+    }
+
+    .u-pb-pc-#{$i} {
+      padding-bottom: #{$i}px !important;
+    }
+  }
+}

@@ -1,0 +1,94 @@
+@use 'sass:math';
+@use './mq' as *;
+@use './functions' as *;
+
+// 源ノ角ゴシック - 400
+// https://fonts.adobe.com/fonts/source-han-sans-japanese
+@mixin font-ja($weight: 400) {
+  font-family: var(--font-ja);
+  font-weight: $weight;
+}
+
+// Archivo - 200 / 200Italic / 300 / 300Italic / 400
+// https://fonts.google.com/specimen/Archivo#styles
+@mixin font-en($weight: 300) {
+  font-family: var(--font-archivo);
+  font-weight: $weight;
+}
+
+@mixin inline-block-wrap($fz: 12px) {
+  font-size: 0;
+  letter-spacing: -0.4em;
+
+  > * {
+    font-size: $fz;
+    letter-spacing: normal;
+  }
+}
+
+@mixin bg-temp {
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  content: '';
+}
+
+@mixin thumb {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@mixin line-clamp($line: 2) {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $line;
+}
+
+@mixin text-shadow($color) {
+  text-shadow:
+    $color 0.1rem 0.1rem 0,
+    $color -0.1rem -0.1rem 0,
+    $color -0.1rem 0.1rem 0,
+    $color 0.1rem -0.1rem 0,
+    $color 0 0.1rem 0,
+    $color 0 -0.1rem 0,
+    $color -0.1rem 0 0,
+    $color 0.1rem 0 0;
+}
+
+@mixin clearfix {
+  &::after {
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+    content: '.';
+  }
+}
+
+@mixin fz-vw($font-size: 10, $viewport: 375, $max-limit: 550, $min-limit: 320) {
+  $font-size: $font-size - 10; // 10px分はremで＋するので引く
+  $max-rate: math.div($max-limit, $viewport);
+  $font-size-max: px-to-rem($font-size * $max-rate + 10);
+  $min-rate: math.div($min-limit, $viewport);
+  $font-size-min: px-to-rem($font-size * $min-rate + 10);
+  $font-size-vw: get-vw($font-size, $viewport);
+
+  font-size: min(#{calc(#{$font-size-vw} + #{px-to-rem(10)})}, #{$font-size-max});
+  font-size: clamp(#{$font-size-min}, #{calc(#{$font-size-vw} + #{px-to-rem(10)})}, #{$font-size-max});
+}
+
+@mixin no-motion {
+  @include reduce {
+    transition: none !important;
+  }
+}

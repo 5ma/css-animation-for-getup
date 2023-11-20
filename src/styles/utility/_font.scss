@@ -1,0 +1,9 @@
+@use '@/styles/global/' as *;
+
+.u-font-ja {
+  @include font-ja;
+}
+
+.u-font-en {
+  @include font-en;
+}
