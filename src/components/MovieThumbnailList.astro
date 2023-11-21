@@ -14,7 +14,7 @@ const { class: className } = Astro.props
     <ul class="movie-list">
       {mvListData.map((mv) => (
         <li class="movie-list__item">
-          <button class="movie-list__button" type="button" data-movie-id={mv.id}>
+          <button class="movie-list__button" type="button" data-movie-trigger data-movie-id={mv.id}>
             <span class="movie-list__title u-font-en">{mv.title}</span>
             <span class="movie-list__thumb">
               <Image

@@ -7,7 +7,7 @@ const { class: className } = Astro.props;
 ---
 
 <div class:list={[className, "wrapper"]}>
-  <iframe class="iframe" width="560" height="315" src="https://www.youtube.com/embed/dJdqn5v4Dkw?si=1XB1wZQzM9Ryk_Ez" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+  <div id="player"></div>
 </div>
 
 <style lang="scss">
@@ -15,7 +15,7 @@ const { class: className } = Astro.props;
     position: relative;
     aspect-ratio: 16 / 9;
   }
-  .iframe {
+  iframe {
     position: absolute;
     top: 0;
     left: 0;
