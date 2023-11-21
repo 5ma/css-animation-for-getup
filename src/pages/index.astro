@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import Layout from '@/layouts/Layout.astro';
 import MovieThumbnailList from '@/components/MovieThumbnailList.astro';
+import YouTubePlayer from '@/components/YouTubePlayer.astro';
 import jkImage from '@/images/getup_jk.jpg'
 ---
 
@@ -13,6 +14,7 @@ import jkImage from '@/images/getup_jk.jpg'
 				alt={"NewJeans 2nd EP 'Get Up'のジャケット画像"}
 			/>
 		</div>
+		<YouTubePlayer class={"youtube"} />
 		<MovieThumbnailList />
 	</main>
 </Layout>
@@ -21,12 +23,17 @@ import jkImage from '@/images/getup_jk.jpg'
 	.container {
 		position: relative;
 		min-height: 100dvh;
-		// background: url('https://codelikes.com/wp-content/uploads/2022/04/melissa-keizer-2Qs3kvXGwjg-unsplash.jpg') no-repeat 50% / cover;
+		display: grid;
+		place-content: center;
+		padding: 100px 0 200px;
 	}
 	.jk {
 		position: absolute;
 		top: 15px;
 		left: 20px;
 		width: 150px;
+	}
+	.youtube {
+		width: min(85vh, 90vw);
 	}
 </style>
