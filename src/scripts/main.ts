@@ -9,7 +9,7 @@ const initYouTubePlayer = async () => {
   });
 }
 
-const player = await initYouTubePlayer();
+const player = await initYouTubePlayer()
 await console.log('player', player)
 
 // サムネイルクリックで動画切り替え

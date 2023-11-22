@@ -1,0 +1,171 @@
+---
+interface Props {
+  class?: string
+}
+
+const { class: className } = Astro.props;
+---
+
+<div class:list={[className, "wrapper"]}>
+  <div class="particle-wrapper">
+    {Array.from({length: 300}, () => (
+      <span class="particle"></span>
+    ))}
+  </div>
+  <div class="star-wrapper" data-random-star="wrapper">
+    {Array.from({length: 40}, () => (
+      <span class="star" data-random-star="item"></span>
+    ))}
+  </div>
+</div>
+
+<style lang="scss">
+  .wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    &::before,
+    &::after {
+      @include bg-temp;
+    }
+
+    &::before {
+      background: linear-gradient(to bottom, var(--color-white) 0%, var(--color-white) 20%, var(--color-light-pink) 100%);
+    }
+
+    &::after {
+      background: radial-gradient(ellipse, transparent 0%, transparent 65%, var(--color-light-blue) 100%);
+    }
+  }
+
+  .particle {
+    position: absolute;
+    z-index: 1;
+    width: 7px;
+    height: 7px;
+    animation: particle-moveY cubic-bezier(0.57, 0.01, 0.24, 1) 16s infinite;
+
+    &::before {
+      @include bg-temp;
+      border-radius: 50%;
+      box-shadow: 0 0 50px rgb(var(--rgb-white) / 1);
+      background-color: var(--color-white);
+    }
+
+
+    @for $i from 1 through 300 {
+      &:nth-of-type(#{$i}) {
+        bottom: #{math.random(50) * 1%};
+        left: #{math.random(100) * 1%};
+        animation-delay: #{math.random(50) * 0.32s * -1};
+        $r: math.random(2);
+        @if $r == 1 {
+          &::before {
+            animation: particle-move-right-left 5s infinite alternate;
+          }
+        }
+      }
+    }
+  }
+
+  .star-wrapper {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .star {
+    position: absolute;
+    z-index: 1;
+    width: 25px;
+    height: 25px;
+    filter: brightness(98%);
+    scale: 0.5 0.65;
+    rotate: y 1080deg;
+    opacity: 0;
+
+    transition: opacity .5s, scale .4s, rotate .3s, translate 0s .5s;
+
+    &:nth-of-type(3n) {
+      width: 17px;
+      height: 17px;
+    }
+
+    &.is-active,
+    &.is-rotate {
+      opacity: 1;
+      scale: 1 1.3;
+      transition: opacity .1s, scale .3s, rotate cubic-bezier(0.22, 0.61, 0.36, 1) .95s, translate .4s cubic-bezier(0.22, 0.61, 0.36, 1);
+
+      &::after {
+        // アニメーション用クラスが付いたらキラッとさせる
+        animation-play-state: running;
+      }
+    }
+
+    &.is-rotate {
+      rotate: y 0deg;
+    }
+
+    &::before {
+      @include bg-temp;
+      mask: url('/assets/images/star.svg') no-repeat 50% / contain;
+      background-color: var(--color-white);
+    }
+
+    &::after {
+      @include bg-temp;
+      mix-blend-mode: hard-light;
+      mask: url('/assets/images/star.svg') no-repeat 50% / contain;
+      background: url('/assets/images/AdobeStock_616118336.png') no-repeat 0 / 300%;
+      animation: star-shining 2s infinite cubic-bezier(0.76, 0, 0.24, 1);
+      animation-play-state: paused;
+
+      @keyframes star-shining {
+        0% {
+          background-position: 0 0;
+        }
+        100% {
+          background-position: 100% 0;
+        }
+      }
+    }
+
+    @for $i from 1 through 5 {
+      &:nth-of-type(5n + #{$i}) {
+        &::after {
+          animation-delay: #{$i * 0.4s * -1};
+        }
+      }
+    }
+  }
+
+  @keyframes particle-moveY {
+    0% {
+      translate: 0 50vh;
+      opacity: 0;
+    }
+    8%, 92% {
+      opacity: 1;
+    }
+    100% {
+      translate: 0 -110vh;
+      opacity: 0;
+    }
+  }
+
+  @keyframes particle-move-right-left {
+    0% {
+      translate: -20px 0;
+    }
+    100% {
+      translate: 20px 0;
+    }
+  }
+</style>

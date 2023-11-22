@@ -2,12 +2,16 @@
 import { Image } from 'astro:assets';
 import Layout from '@/layouts/Layout.astro';
 import MovieThumbnailList from '@/components/MovieThumbnailList.astro';
+import BgSuperShy from '@/components/bg/BgSuperShy.astro';
 import YouTubePlayer from '@/components/YouTubePlayer.astro';
 import jkImage from '@/images/getup_jk.jpg'
 ---
 
 <Layout>
 	<main class="container">
+		<div class="bg">
+			<BgSuperShy />
+		</div>
 		<div class="jk">
 			<Image
 				src={jkImage}
@@ -27,6 +31,14 @@ import jkImage from '@/images/getup_jk.jpg'
 		place-content: center;
 		padding: 100px 0 200px;
 	}
+	.bg {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		pointer-events: none;
+	}
 	.jk {
 		position: absolute;
 		top: 15px;
@@ -34,6 +46,6 @@ import jkImage from '@/images/getup_jk.jpg'
 		width: 150px;
 	}
 	.youtube {
-		width: min(85vh, 90vw);
+		width: min(85vh, 80vw);
 	}
 </style>
