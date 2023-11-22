@@ -12,6 +12,7 @@
   "dependencies": {
     "@astrojs/check": "^0.3.1",
     "@types/youtube": "^0.0.50",
+    "@yama-dev/js-random-module": "^0.4.3",
     "astro": "^3.5.5",
     "ress": "^5.0.2",
     "typescript": "^5.2.2"
