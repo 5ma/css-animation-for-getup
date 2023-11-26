@@ -1,5 +1,5 @@
 import { setYouTubePlayer } from "@/scripts/modules/youtube-player";
-import { setSpotLightAnimation } from "@/scripts/modules/bg-asap";
+import { useAsapBg } from "@/scripts/modules/bg-asap";
 
 const movieSwitchTriggers = document.querySelectorAll('[data-movie-trigger]')
 
@@ -24,4 +24,5 @@ movieSwitchTriggers.forEach((trigger) => {
   })
 })
 
-setSpotLightAnimation()
+// const asapBg = useAsapBg()
+// asapBg.set()

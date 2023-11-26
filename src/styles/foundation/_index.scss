@@ -1,5 +1,6 @@
 @use '@/styles/global/' as *;
 @forward "./variables";
+@forward "./keyframes";
 
 @include pc {
   .is-sp {

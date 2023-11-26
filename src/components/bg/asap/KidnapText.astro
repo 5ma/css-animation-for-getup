@@ -1,0 +1,202 @@
+---
+interface Props {
+  class?: string
+}
+
+const { class: className } = Astro.props;
+---
+
+<div class:list={[className, "kidnap"]} data-random-text="wrapper">
+  {'NewJeans'.split('').map((letter, index) => (
+    <div class="kidnap__text" data-index={index + 1} data-random-text="item">{letter}</div>
+  ))}
+</div>
+
+<style lang="scss">
+  .kidnap {
+    display: flex;
+    @include font-days;
+    line-height: 1;
+    font-size: 12vh;
+    white-space: nowrap;
+    color: var(--color-off-white);
+  }
+
+  .kidnap__text {
+    position: relative;
+
+    &::before,
+    &::after {
+      @include bg-temp;
+      background-repeat: no-repeat;
+      background-position: 50%;
+      background-size: contain;
+      opacity: 0;
+    }
+
+    &.is-active-1,
+    &.is-active-2,
+    &.is-active-4 {
+      color: transparent;
+    }
+
+    &.is-active-1,
+    &.is-active-3 {
+      animation: gachagacha-right .4s steps(1);
+    }
+
+    &.is-active-2,
+    &.is-active-4 {
+      animation: gachagacha-bottom .4s steps(1);
+    }
+
+    &.is-active-1,
+    &.is-active-4 {
+      &::before {
+        opacity: 1;
+      }
+    }
+
+    &.is-active-2 {
+      &::after {
+        opacity: 1;
+      }
+    }
+
+    &[data-index="1"] {
+      &::before {
+        background-image: url('/assets/images/ransomizer_n_3.png');
+      }
+      &::after {
+        background-image: url('/assets/images/ransomizer_n_2.png');
+        rotate: -50deg
+      }
+      &.is-active-3 {
+        translate: 0 -15px;
+        scale: -1 1;
+      }
+      &.is-active-4 {
+        &::before {
+          background-image: url('/assets/images/bunnies_blue.svg');
+        }
+      }
+    }
+    &[data-index="2"] {
+      &::before {
+        background-image: url('/assets/images/ransomizer_e.png');
+      }
+      &::after {
+        background-image: url('/assets/images/ransomizer_e_3.png');
+      }
+      &.is-active-3 {
+        rotate: 100deg;
+        scale: 1.5;
+      }
+      &.is-active-4 {
+        &::before {
+          background-image: url('/assets/images/bunnies_green.svg');
+        }
+      }
+    }
+    &[data-index="3"] {
+      &::before {
+        background-image: url('/assets/images/ransomizer_w.png');
+        background-size: 70%;
+        background-position: bottom left;
+        rotate: -15deg
+      }
+      &::after {
+        background-image: url('/assets/images/ransomizer_w_2.png');
+      }
+      &.is-active-3 {
+        scale: 1.3 0.8;
+      }
+      &.is-active-4 {
+        &::before {
+          background-image: url('/assets/images/bunnies_pink.svg');
+          background-position: 50%;
+          scale: 1.5;
+        }
+      }
+    }
+    &[data-index="4"] {
+      &::before {
+        background-image: url('/assets/images/ransomizer_j.png');
+      }
+      &::after {
+        background-image: url('/assets/images/ransomizer_j_2.png');
+      }
+      &.is-active-3 {
+        translate: 10px -30px;
+        rotate: -20deg;
+      }
+      &.is-active-4 {
+        &::before {
+          background-image: url('/assets/images/bunnies_blue.svg');
+          scale: 1.3;
+        }
+      }
+    }
+    &[data-index="5"] {
+      &::before {
+        background-image: url('/assets/images/ransomizer_e_2.png');
+      }
+      &::after {
+        background-image: url('/assets/images/ransomizer_e_4.png');
+      }
+      &.is-active-3 {
+        scale: 0.8 1.4;
+      }
+      &.is-active-4 {
+        &::before {
+          background-image: url('/assets/images/bunnies_white.svg');
+        }
+      }
+    }
+    &[data-index="6"] {
+      // a
+      z-index: 1;
+      &::before {
+        background-image: url('/assets/images/ransomizer_a.png');
+      }
+      &::after {
+        background-image: url('/assets/images/ransomizer_a_2.png');
+      }
+      &.is-active-3 {
+        rotate: 180deg;
+      }
+      &.is-active-4 {
+        &::before {
+          background-image: url('/assets/images/bunnies_sticker.png');
+          rotate: 15deg;
+          scale: 2.2;
+        }
+      }
+    }
+    &[data-index="7"] {
+      &::before {
+        background-image: url('/assets/images/ransomizer_n.png');
+      }
+      &::after {
+        background-image: url('/assets/images/ransomizer_n_3.png');
+      }
+      &.is-active-4 {
+        &::before {
+          background-image: url('/assets/images/bunnies_yellow.svg');
+        }
+      }
+    }
+    &[data-index="8"] {
+      &::before {
+        background-image: url('/assets/images/ransomizer_s.png');
+        rotate: 15deg;
+        translate: 0 15%;
+      }
+      &::after {
+        background-image: url('/assets/images/ransomizer_s_2.png');
+        rotate: -15deg;
+        scale: 0.7;
+      }
+    }
+  }
+</style>

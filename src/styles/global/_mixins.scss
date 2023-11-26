@@ -16,6 +16,13 @@
   font-weight: $weight;
 }
 
+// Days One - only 400
+// https://fonts.google.com/specimen/Days+One
+@mixin font-days {
+  font-family: var(--font-days-one);
+  font-weight: 400;
+}
+
 @mixin inline-block-wrap($fz: 12px) {
   font-size: 0;
   letter-spacing: -0.4em;

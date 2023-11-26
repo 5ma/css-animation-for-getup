@@ -1,5 +1,6 @@
 ---
 import { Image } from "astro:assets"
+import KidnapText from "@/components/bg/asap/KidnapText.astro"
 
 interface Props {
   class?: string
@@ -9,35 +10,39 @@ const { class: className } = Astro.props;
 ---
 
 <div class:list={[className, "wrapper"]}>
-  <div class="penlight">
-    <Image
-      src="/assets/images/penlight.png"
-      alt=""
-      width="564"
-      height="564"
-    />
-  </div>
-  <div class="penlight penlight--2">
-    <Image
-      src="/assets/images/penlight.png"
-      alt=""
-      width="564"
-      height="564"
-    />
-  </div>
-  <div class="bunnies-sticker">
-    <Image
-      src="/assets/images/bunnies_sticker.png"
-      alt=""
-      width="564"
-      height="564"
-    />
-  </div>
-  <div class="line">
+  <div class="line" data-asap-line>
     <svg viewBox="0 0 296 68" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M5.13867 25.0618C10.8795 23.3146 16.1708 19.9822 21.5408 17.366C32.497 12.0284 44.2171 9.06697 56.2495 7.33817C78.2781 4.17315 108.764 2.16412 127.649 16.5109C136.804 23.4654 143.098 38.419 135.423 48.771C127.841 58.9981 115.806 63.9859 103.202 61.6751C93.1691 59.8358 89.2572 51.8581 89.0927 42.3967C88.9525 34.3393 88.4565 27.3321 95.5058 21.9524C106.15 13.8294 120.468 9.3938 133.557 7.72685C153.019 5.24827 176.015 7.39189 194.035 15.4226C202.565 19.2241 243.417 40.3181 225.907 54.4457C219.76 59.4052 208.451 63.7242 200.409 61.7139C192.295 59.6853 190.202 48.6175 189.876 41.6194C188.936 21.4043 210.709 10.7239 228.161 8.65967C245.243 6.63916 259.833 9.16766 275.424 16.3554C279.64 18.2995 288.287 20.472 290.582 25.0618" stroke="white" stroke-width="5" stroke-linecap="round"/>
+      <path d="M5.13867 25.0618C10.8795 23.3146 16.1708 19.9822 21.5408 17.366C32.497 12.0284 44.2171 9.06697 56.2495 7.33817C78.2781 4.17315 108.764 2.16412 127.649 16.5109C136.804 23.4654 143.098 38.419 135.423 48.771C127.841 58.9981 115.806 63.9859 103.202 61.6751C93.1691 59.8358 89.2572 51.8581 89.0927 42.3967C88.9525 34.3393 88.4565 27.3321 95.5058 21.9524C106.15 13.8294 120.468 9.3938 133.557 7.72685C153.019 5.24827 176.015 7.39189 194.035 15.4226C202.565 19.2241 243.417 40.3181 225.907 54.4457C219.76 59.4052 208.451 63.7242 200.409 61.7139C192.295 59.6853 190.202 48.6175 189.876 41.6194C188.936 21.4043 210.709 10.7239 228.161 8.65967C245.243 6.63916 259.833 9.16766 275.424 16.3554C279.64 18.2995 288.287 20.472 290.582 25.0618" stroke="white" stroke-width="3" stroke-linecap="round"/>
     </svg>
   </div>
+  <div class="star" data-random-asap-star="wrapper">
+    {Array.from({length: 40}, (_, index) => (
+      <div class="star__item" data-random-asap-star="item">
+        <div class="star__inner"></div>
+      </div>
+    ))}
+  </div>
+  <div class="penlight">
+    {Array.from({length: 4}, (_, index) => (
+      <div class={`penlight__item penlight__item--${index + 1}`}>
+        <Image
+          src="/assets/images/penlight.png"
+          alt=""
+          width="564"
+          height="564"
+        />
+      </div>
+    ))}
+  </div>
+  <div class="asap-sticker" data-asap-sticker>
+    <Image
+      src="/assets/images/asap_sticker.png"
+      alt=""
+      width="430"
+      height="126"
+    />
+  </div>
+  <KidnapText class="newjeans" />
   <div class="bunnies">
     <div class="bunnies__item">
       <Image
@@ -81,12 +86,24 @@ const { class: className } = Astro.props;
     </div>
   </div>
   <div class="rabbit">
-    <Image
-      src="/assets/images/nj_rabbit.png"
-      alt=""
-      width="600"
-      height="600"
-    />
+    <div class="rabbit__inner">
+      <Image
+        src="/assets/images/nj_rabbit.png"
+        alt=""
+        width="600"
+        height="600"
+      />
+    </div>
+  </div>
+  <div class="rabbit rabbit--2">
+    <div class="rabbit__inner">
+      <Image
+        src="/assets/images/nj_rabbit.png"
+        alt=""
+        width="600"
+        height="600"
+      />
+    </div>
   </div>
   <div class="mark">
     <Image
@@ -108,31 +125,50 @@ const { class: className } = Astro.props;
     background-color: var(--color-night-gray);
   }
 
+  .newjeans {
+    position: absolute;
+    inset: 5% auto auto 50%;
+    width: fit-content;
+    translate: -50% 0;
+  }
+
   .bunnies {
     position: absolute;
     top: 180px;
     bottom: 0;
     left: 0;
     width: 10%;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity .3s;
+    @include hover {
+      &:hover {
+        opacity: 1;
+      }
+    }
 
     &__item {
       height: 20%;
-
+      transform-origin: bottom;
+      &:not(:last-of-type) {
+        margin-bottom: -12%;
+      }
       &:nth-of-type(1) {
-        translate: 100% 0;
-        rotate: 15deg;
+        transform-origin: 50% 75%;
+        animation: bunnies-yurayura-5 3s alternate infinite ease-in-out;
       }
-
       &:nth-of-type(2) {
-        translate: 41% 0;
-        rotate: 5deg;
+        animation: bunnies-yurayura-4 3s alternate infinite ease-in-out;
       }
-
       &:nth-of-type(3) {
-        translate: 20% 0;
-        rotate: -10deg;
+        animation: bunnies-yurayura-3 3s alternate infinite ease-in-out;
       }
-
+      &:nth-of-type(4) {
+        animation: bunnies-yurayura-2 3s alternate infinite ease-in-out;
+      }
+      &:nth-of-type(5) {
+        animation: bunnies-yurayura 3s alternate infinite ease-in-out;
+      }
       img {
         width: 100%;
         height: 100%;
@@ -144,8 +180,45 @@ const { class: className } = Astro.props;
   .rabbit {
     position: absolute;
     top: 5vh;
-    right: 6%;
+    right: 2%;
     width: 14%;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity .3s;
+    &--2 {
+      top: auto;
+      right: 50%;
+      bottom: 200px;
+    }
+    @include hover {
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+
+  .rabbit__inner {
+    transform-origin: bottom;
+    transition: 0s .3s;
+    img {
+      translate: 100% 60%;
+      rotate: 50deg;
+      transform-origin: bottom;
+      transition: 0s .3s;
+    }
+    @include hover {
+      .rabbit:hover & {
+        translate: -100% 0;
+        rotate: -70deg;
+        opacity: 0;
+        transition: opacity .4s 1s, translate .75s cubic-bezier(0.61, 1, 0.88, 1) .85s, rotate cubic-bezier(0.61, 1, 0.88, 1) .75s .85s;
+        img {
+          translate: 0;
+          rotate: 0deg;
+          transition: 1s cubic-bezier(0.61, 1, 0.88, 1);
+        }
+      }
+    }
   }
 
   .mark {
@@ -153,46 +226,127 @@ const { class: className } = Astro.props;
     top: 29vh;
     right: 14%;
     width: 2.7%;
-    img {
-      animation: clock 1.2s infinite steps(12);
-      transform-origin: bottom center;
-
-      @keyframes clock {
-        0% {
-          rotate: 0deg;
-        }
-        100% {
-          rotate: 360deg;
-        }
+    @include hover {
+      &:hover {
+        scale: 1.5;
       }
+    }
+    img {
+      animation: rotate-360 1.2s infinite steps(12);
+      transform-origin: bottom center;
     }
   }
 
   .line {
     position: absolute;
     width: 20%;
+    path {
+      stroke-dasharray: 600px;
+      stroke-dashoffset: 600px;
+      transition: stroke-dashoffset 1s;
+    }
+    &.is-active {
+      path {
+        stroke-dashoffset: 0;
+      }
+    }
   }
 
   .penlight {
     position: absolute;
-    bottom: 3px;
-    right: 5px;
-    width: 13%;
-
-    &--2 {
-      top: 2%;
-      left: max(260px, 25%);
-      width: 9%;
-      rotate: -10deg;
+    bottom: 5px;
+    right: 2%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    width: 15%;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity .3s;
+    @include hover {
+      &:hover {
+        opacity: 1;
+      }
     }
   }
 
-  .bunnies-sticker {
+  .penlight__item {
+    width: 50%;
+    animation: penlight-furifuri .9s alternate infinite cubic-bezier(0.45, 0, 0.55, 1);
+    transform-origin: bottom;
+  }
+
+  .star {
     position: absolute;
-    top: 1%;
-    left: 50%;
-    width: 30%;
-    translate: -50% 0;
+    inset: 0;
+  }
+
+  .star__item {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    opacity: 0;
+    transition: opacity .1s;
+    &.is-active {
+      opacity: 1;
+      transition-duration: 0s;
+    }
+    @for $i from 0 through 19 {
+      &:nth-of-type(2n + #{$i * 2 + 1}) {
+        $size_array:  45px, 70px, 80px;
+        $random: math.random(3);
+
+        width: nth($size_array, $random);
+        rotate: #{math.random(36) * 10deg};
+      }
+      &:nth-of-type(2n + #{$i * 2}) {
+        $size_array:  30px, 40px, 60px;
+        $random: math.random(3);
+
+        width: nth($size_array, $random);
+        rotate: #{math.random(36) * 10deg};
+      }
+    }
+  }
+
+  .star__inner {
+    position: absolute;
+    inset: 0;
+    &::before {
+      @include bg-temp;
+      background-repeat: no-repeat;
+      background-position: 50%;
+      background-size: contain;
+      .star__item.is-active & {
+        animation: gachagacha-right .6s steps(1) 2;
+      }
+    }
+    .star__item:nth-of-type(odd) & {
+      &::before {
+        background-image: url('/assets/images/star_hw_3.svg');
+      }
+    }
+    .star__item:nth-of-type(even) & {
+      &::before {
+        background-image: url('/assets/images/star_hw_1.svg');
+      }
+    }
+    @include hover {
+      &:hover {
+        &::before {
+          background-image: url('/assets/images/AdobeStock_547212916.png') !important;
+        }
+      }
+    }
+  }
+
+  .asap-sticker {
+    position: absolute;
+    width: 18%;
+    opacity: 0;
+    &.is-active {
+      animation: bounce 1s linear both, fadeOut .4s 1.2s both;
+    }
   }
 
   .spotlight {
@@ -201,6 +355,7 @@ const { class: className } = Astro.props;
     position: absolute;
     inset: 0;
     overflow: hidden;
+    pointer-events: none;
   }
 
   .spotlight__light {
@@ -215,6 +370,10 @@ const { class: className } = Astro.props;
     // mix-blend-mode: darken;
     // mix-blend-mode: hard-light;
     translate: calc(var(--spotlight-x) - 50vw) calc(var(--spotlight-y) - 50vh);
-    transition: translate 1s cubic-bezier(0.25, 1, 0.5, 1);
+    transition: 1s cubic-bezier(0.25, 1, 0.5, 1);
+    transition-property: translate, scale;
+    &.is-nj-in {
+      scale: 2;
+    }
   }
 </style>
