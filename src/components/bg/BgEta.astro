@@ -1,0 +1,71 @@
+---
+import Confetti from '@/components/bg/eta/Confetti.astro'
+
+interface Props {
+  class?: string
+}
+
+const { class: className } = Astro.props;
+---
+
+<div class:list={[className, "wrapper"]}>
+  <Confetti class="confetti" />
+  <div class="light">
+    <div class="light__item light__item--red"></div>
+    <div class="light__item light__item--blue"></div>
+  </div>
+</div>
+
+<style lang="scss">
+  .wrapper {
+    position: absolute;
+    inset: 0;
+    background-color: var(--color-night-gray);
+    opacity: 0;
+    visibility: hidden;
+    transition: .5s;
+    transition-property: opacity, visibility;
+    :global([data-current-movie="s4Ow55AbdCg"]) & {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+  .confetti {
+    display: none;
+    :global([data-current-movie="s4Ow55AbdCg"]) & {
+      display: block;
+    }
+  }
+
+  .light {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 0;
+  }
+
+  .light__item {
+    width: 50%;
+    height: 100%;
+    animation: light-flicker .8s infinite;
+    animation-play-state: paused;
+
+    :global([data-current-movie="s4Ow55AbdCg"]) & {
+      animation-play-state: running;
+    }
+
+    &--red {
+      box-shadow: 0 0 100px 100px rgba(#e32929, 0.7);
+    }
+
+    &--blue {
+      box-shadow: 0 0 100px 100px rgba(#156dbc, 0.7);
+      animation-delay: .4s;
+    }
+  }
+</style>

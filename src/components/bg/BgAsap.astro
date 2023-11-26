@@ -16,7 +16,7 @@ const { class: className } = Astro.props;
     </svg>
   </div>
   <div class="star" data-random-asap-star="wrapper">
-    {Array.from({length: 40}, (_, index) => (
+    {Array.from({length: 60}, (_, index) => (
       <div class="star__item" data-random-asap-star="item">
         <div class="star__inner"></div>
       </div>
@@ -123,6 +123,14 @@ const { class: className } = Astro.props;
     position: absolute;
     inset: 0;
     background-color: var(--color-night-gray);
+    opacity: 0;
+    visibility: hidden;
+    transition: .5s;
+    transition-property: opacity, visibility;
+    :global([data-current-movie="dJdqn5v4Dkw"]) & {
+      opacity: 1;
+      visibility: visible;
+    }
   }
 
   .newjeans {
@@ -291,7 +299,7 @@ const { class: className } = Astro.props;
       opacity: 1;
       transition-duration: 0s;
     }
-    @for $i from 0 through 19 {
+    @for $i from 0 through 29 {
       &:nth-of-type(2n + #{$i * 2 + 1}) {
         $size_array:  45px, 70px, 80px;
         $random: math.random(3);
@@ -373,7 +381,7 @@ const { class: className } = Astro.props;
     transition: 1s cubic-bezier(0.25, 1, 0.5, 1);
     transition-property: translate, scale;
     &.is-nj-in {
-      scale: 2;
+      scale: 2.2;
     }
   }
 </style>

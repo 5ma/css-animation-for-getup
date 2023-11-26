@@ -1,3 +1,5 @@
+@use "sass:math";
+
 @keyframes bunnies-yurayura {
   0% {
     rotate: -5deg;
@@ -147,5 +149,140 @@
   }
   100% {
     opacity: 0;
+  }
+}
+@keyframes kirakira {
+  0% {
+    opacity: 0;
+    transform: rotate(0deg) scale(2);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: rotate(360deg) scale(2);
+  }
+}
+@keyframes paper-fall {
+  0% {
+    translate: 0 -40px;
+  }
+  100% {
+    translate: 0 125vh;
+  }
+}
+@keyframes paper-fade-in-out {
+  0% {
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes paper-rotate {
+  0% {
+    rotate: 0deg;
+  }
+  40% {
+    rotate: 360deg;
+  }
+  100% {
+    rotate: 360deg;
+  }
+}
+@keyframes paper-rotate {
+  0% {
+    rotate: y 0deg;
+  }
+  40% {
+    rotate: y 360deg;
+  }
+  100% {
+    rotate: y 360deg;
+  }
+}
+@keyframes paper-rotate-2 {
+  0% {
+    rotate: y 0deg;
+  }
+  100% {
+    rotate: y 360deg;
+  }
+}
+@mixin setRotate($index, $angle) {
+  @keyframes setAngle#{$index} {
+    0% {
+      rotate: #{math.floor(math.div($angle, 1.5) * -1)}deg;
+    }
+    60% {
+      rotate: #{math.floor(math.div($angle, 3))}deg;
+    }
+    100% {
+      rotate: #{$angle}deg;
+    }
+  }
+}
+@for $i from 1 through math.div(45, 5) {
+  @include setRotate($i * 5, $i * 5);
+}
+// マイナス用の角度のkeyframeを作成
+@for $i from 1 through math.div(45, 5) {
+  $_angle: $i * 5 * -1;
+  @include setRotate($i * 5 + 45, $_angle);
+}
+@keyframes light-flicker {
+  0% {
+    opacity: 8%;
+  }
+  10% {
+    opacity: 100%;
+  }
+  20% {
+    opacity: 8%;
+  }
+  80% {
+    opacity: 8%;
+  }
+  90% {
+    opacity: 100%;
+  }
+  100% {
+    opacity: 8%;
+  }
+}
+@keyframes particle-moveY {
+  0% {
+    translate: 0 50vh;
+    opacity: 0;
+  }
+  8%, 92% {
+    opacity: 1;
+  }
+  100% {
+    translate: 0 -110vh;
+    opacity: 0;
+  }
+}
+@keyframes particle-move-right-left {
+  0% {
+    translate: -20px 0;
+  }
+  100% {
+    translate: 20px 0;
+  }
+}
+@keyframes star-shining {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 100% 0;
   }
 }

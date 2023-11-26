@@ -1,0 +1,157 @@
+---
+interface Props {
+  class?: string
+}
+
+const { class: className } = Astro.props;
+---
+
+<div class:list={[className, "paper"]}>
+  {Array.from({length: 100}, () => (
+    <div class="paper__item">
+      <div class="paper__content">
+        <div class="paper__wrapper">
+          <div class="paper__front">
+            <div class="paper__front-content"></div>
+          </div>
+          <div class="paper__back">
+            <div class="paper__back-content"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  ))}
+</div>
+
+<style lang="scss">
+  // 紙吹雪の色：オレンジ、緑、水色、赤、ピンク
+  $paper: (#FFDE32, #52CF86, #7EE0E3, #F14955, #F5C3DD);
+
+  .paper {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .paper__item {
+    position: absolute;
+    @for $i from 1 through 100 {
+      &:nth-of-type(#{$i}) {
+        $size: (10, 12, 20);
+        $size_random: math.random(3);
+
+        $max_angle: 45;
+        $random_angle: math.random(math.div($max_angle * 2, 5));
+
+        $width: nth($size, $size_random);
+        $height: math.round($width * 2.2);
+
+        $fall_duration: 13s;
+        $fall_delay: math.random(30) * 1.2s * -1;
+        // サイズが小さいものほどゆっくり落とす
+        @if $size_random > 1 {
+          $fall_duration: 13s - (($width - nth($size, 1)) * 0.22s) + math.random(5) * 0.1s;
+        }
+
+        width: #{$width}px;
+        height: #{$height}px;
+        left: math.percentage(math.random(98) * 0.01);
+
+        // ランダムな角度をつける
+        animation: setAngle#{$random_angle * 5} $fall_duration infinite forwards $fall_delay, paper-fade-in-out $fall_duration infinite $fall_delay;
+
+        .paper__content {
+          animation-delay: $fall_delay;
+          animation-duration: $fall_duration;
+        }
+
+        // 紙がくるくる回転する速度をランダムにする
+        .paper__wrapper {
+          $rotate_duration: (0.2s, 0.3s, 0.7s, 1s);
+          $rotate_duration_random: math.random(4);
+          $rotate_type_random: math.random(3);
+
+          animation-delay: math.random(30) * 1s * -0.08;
+          animation-duration: nth($rotate_duration, $rotate_duration_random);
+
+          @if $rotate_type_random == 1 {
+            animation-name: paper-rotate;
+            animation-duration: 1.5s;
+            animation-direction: alternate;
+          }
+        }
+
+        .paper__front,
+        .paper__back {
+          $skew_array: (5, 10, 15);
+          $skew_random1: math.random(3);
+          $skew: nth($skew_array, $skew_random1);
+          // 1/2の確率でマイナスの値にする
+          $skew_random2: math.random(2);
+          @if $skew_random2 == 1 {
+            $skew: $skew * -1;
+          }
+          transform: skewY(#{$skew}deg) rotate(#{$random_angle * 5}deg);
+        }
+      }
+    }
+  }
+
+  .paper__content {
+    position: absolute;
+    inset: 0;
+    animation: paper-fall 13s infinite both cubic-bezier(0.16, 0.61, 0.5, 1);
+    transform-style: preserve-3d;
+    opacity: 0.8;
+  }
+
+  .paper__wrapper {
+    position: absolute;
+    inset: 0;
+    transform-style: preserve-3d;
+    rotate: y 0deg;
+    animation: paper-rotate-2 1s infinite linear;
+  }
+
+  .paper__front,
+  .paper__back {
+    position: absolute;
+    inset: 0;
+    // transform: skewX(10deg);
+    transform-style: preserve-3d;
+  }
+
+  .paper__front {
+    &-content {
+      position: absolute;
+      inset: 0;
+      @for $i from 1 through 5 {
+        .paper__item:nth-of-type(5n + #{$i}) & {
+          background-color: nth($paper, $i);
+        }
+      }
+    }
+  }
+
+  .paper__back {
+    z-index: 1;
+    backface-visibility: hidden;
+    &-content {
+      position: absolute;
+      inset: 0;
+      @for $i from 1 through 5 {
+        .paper__item:nth-of-type(5n + #{$i}) & {
+          background-color: darken(nth($paper, $i), 5%);
+        }
+      }
+    }
+  }
+  .test {
+    // position: absolute;
+    // inset: 0;
+    // background: linear-gradient(45deg, #f00 30%, #fc8b00, #ff0, #00ff8a, #0026ff 70%);
+    // mix-blend-mode: overlay;
+    // animation: kirakira 7s linear infinite;
+  }
+</style>

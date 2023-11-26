@@ -44,7 +44,6 @@ const setKidnapTextAnimation = () => {
     const NJText = document.querySelector('[data-random-text="wrapper"]');
     let kidnapTextAnime: any;
     NJText?.addEventListener('mouseenter', () => {
-      console.log('mouseenter')
       spotlight?.classList.add('is-nj-in')
       if (kidnapTextAnime) {
         kidnapTextAnime.StartAction()
@@ -53,7 +52,6 @@ const setKidnapTextAnimation = () => {
       }
     })
     NJText?.addEventListener('mouseleave', () => {
-      console.log('mouseleave')
       spotlight?.classList.remove('is-nj-in')
       if (kidnapTextAnime) kidnapTextAnime.StopAction();
     })
@@ -62,9 +60,6 @@ const setKidnapTextAnimation = () => {
   setRandom()
 }
 
-
-
-
 // star
 const useStartAnimation = () => {
   let starRandomInstance: any;
@@ -72,11 +67,11 @@ const useStartAnimation = () => {
     return new RANDOM_MODULE('[data-random-asap-star="item"]',{
       elemWrap: '[data-random-asap-star="wrapper"]',
       durationX2: 2000,
-      interval: 150,
-      intervalDeflection: 50,
+      interval: 110,
+      intervalDeflection: 40,
       addClassName: ['is-active'],
       autoStart: true,
-      preStartCount: 10,
+      preStartCount: 14,
       positionRandom: true,
       repeat: true
     });
@@ -176,4 +171,3 @@ export const useAsapBg = () => {
     stop
   }
 }
-
