@@ -4,6 +4,8 @@ const spotlight: null | HTMLDivElement = document.querySelector('[data-spotlight
 
 // spotlight
 const useSpotlight = () => {
+  const NJText = document.querySelector('[data-random-text="wrapper"]');
+
   const setMousePositionAsCssVar = (event: PointerEvent) => {
     if (!spotlight) return
     spotlight.style.setProperty('--spotlight-x', `${Math.floor(event.clientX)}px`)
@@ -12,6 +14,13 @@ const useSpotlight = () => {
 
   const set = () => {
     window.addEventListener('pointermove', setMousePositionAsCssVar)
+
+    // 最初にNewJeansのテキストにスポットライトを当てる
+    if (!spotlight) return
+    spotlight.style.setProperty('--spotlight-x', `${Math.floor(window.innerWidth / 2)}px`)
+    spotlight.style.setProperty('--spotlight-y', `${Math.floor(window.innerHeight * 0.05)}px`)
+    const mouseEnterEvent = new Event('mouseenter')
+    NJText?.dispatchEvent(mouseEnterEvent)
   }
 
   const remove = () => {
@@ -25,7 +34,10 @@ const useSpotlight = () => {
 }
 
 // NewJeans kidnap選出
-const setKidnapTextAnimation = () => {
+const useKidnapTextAnimation = () => {
+  const NJText = document.querySelector('[data-random-text="wrapper"]');
+  if (!NJText) return;
+
   const initKidNapTextAnimation = () => {
     return new RANDOM_MODULE('[data-random-text="item"]',{
       elemWrap: '[data-random-text="wrapper"]',
@@ -40,24 +52,35 @@ const setKidnapTextAnimation = () => {
     });
   }
 
-  const setRandom = () => {
-    const NJText = document.querySelector('[data-random-text="wrapper"]');
-    let kidnapTextAnime: any;
-    NJText?.addEventListener('mouseenter', () => {
-      spotlight?.classList.add('is-nj-in')
-      if (kidnapTextAnime) {
-        kidnapTextAnime.StartAction()
-      } else {
-        kidnapTextAnime = initKidNapTextAnimation();
-      }
-    })
-    NJText?.addEventListener('mouseleave', () => {
-      spotlight?.classList.remove('is-nj-in')
-      if (kidnapTextAnime) kidnapTextAnime.StopAction();
-    })
+  let kidnapTextAnime: any;
+  const onMouseEnter = () => {
+    spotlight?.classList.add('is-nj-in')
+    if (kidnapTextAnime) {
+      kidnapTextAnime.StartAction()
+    } else {
+      kidnapTextAnime = initKidNapTextAnimation();
+    }
   }
 
-  setRandom()
+  const onMouseLeave = () => {
+    spotlight?.classList.remove('is-nj-in')
+    if (kidnapTextAnime) kidnapTextAnime.StopAction();
+  }
+
+  const set = () => {
+    NJText.addEventListener('mouseenter', onMouseEnter)
+    NJText.addEventListener('mouseleave', onMouseLeave)
+  }
+
+  const remove = () => {
+    NJText.removeEventListener('mouseenter', onMouseEnter)
+    NJText.removeEventListener('mouseleave', onMouseLeave)
+  }
+
+  return {
+    set,
+    remove
+  }
 }
 
 // star
@@ -147,21 +170,23 @@ export const createClassToggler = (element: HTMLElement | null, duration: number
 
 export const useAsapBg = () => {
   const spotlightAnime = useSpotlight()
+  const kidnapText = useKidnapTextAnimation()
   const starAnime = useStartAnimation()
   const togglerLine = createClassToggler(document.querySelector('[data-asap-line]'), 1150)
   const togglerAsapSticker = createClassToggler(document.querySelector('[data-asap-sticker]'), 1600)
 
   const set = () => {
+    kidnapText?.set()
     spotlightAnime.set()
-    setKidnapTextAnimation()
     starAnime.set()
     togglerLine?.start()
     togglerAsapSticker?.start()
   }
 
   const stop = () => {
-    spotlightAnime.remove()
+    kidnapText?.remove()
     starAnime.stop()
+    spotlightAnime.remove()
     togglerLine?.stop()
     togglerAsapSticker?.stop()
   }

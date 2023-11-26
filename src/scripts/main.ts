@@ -14,10 +14,12 @@ const state = {
   currentVideoId: '' // 現在再生中の動画IDを格納
 }
 
+// stateのcurrentVideoIdを更新
 const updateStateVideoId = (videoId: string) => {
   state.currentVideoId = videoId
 }
 
+// YouTubeプレーヤー初期化
 const initYouTubePlayer = async () => {
   return await setYouTubePlayer({
     elementId: 'player',
@@ -25,11 +27,14 @@ const initYouTubePlayer = async () => {
   });
 }
 
-const player = await initYouTubePlayer()
-updateStateVideoId(defaultVideoId)
-container?.setAttribute('data-current-movie', defaultVideoId)
-if (START[defaultVideoId]) {
-  START[defaultVideoId]()
+const setDefaultVideo = () => {
+  updateStateVideoId(defaultVideoId)
+
+  container?.setAttribute('data-current-movie', defaultVideoId)
+
+  if (START[defaultVideoId]) {
+    START[defaultVideoId]()
+  }
 }
 
 const switchVideo = (videoId: string | null) => {
@@ -77,3 +82,6 @@ keywordsToggle?.addEventListener('mouseleave', () => {
     list.setAttribute('aria-hidden', 'true')
   })
 })
+
+const player = await initYouTubePlayer()
+setDefaultVideo()

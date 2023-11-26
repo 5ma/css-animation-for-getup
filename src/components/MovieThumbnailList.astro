@@ -39,10 +39,14 @@ const { class: className } = Astro.props
     width: fit-content;
     max-width: calc(100% - 30px);
     padding: 10px 22px 25px;
+    color: var(--color-white);
     background-color: rgb(var(--rgb-white) / 0.15);
     backdrop-filter: blur(15px);
     border-radius: 25px;
     translate: -50% 0;
+    :global([data-current-movie="ArmDp-zijuc"]) & {
+      color: var(--color-black);
+    }
   }
   .movie-select {
     width: 100%;
