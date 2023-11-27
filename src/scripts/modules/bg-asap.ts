@@ -55,16 +55,20 @@ const useKidnapTextAnimation = () => {
   let kidnapTextAnime: any;
   const onMouseEnter = () => {
     spotlight?.classList.add('is-nj-in')
+
     if (kidnapTextAnime) {
+      // 一度stopしてから再度startする
+      kidnapTextAnime.StopAction()
       kidnapTextAnime.StartAction()
-    } else {
-      kidnapTextAnime = initKidNapTextAnimation();
+      return
     }
+
+    kidnapTextAnime = initKidNapTextAnimation()
   }
 
   const onMouseLeave = () => {
     spotlight?.classList.remove('is-nj-in')
-    if (kidnapTextAnime) kidnapTextAnime.StopAction();
+    if (kidnapTextAnime) kidnapTextAnime.StopAction()
   }
 
   const set = () => {
