@@ -1,4 +1,4 @@
-import { setYouTubePlayer } from "@/scripts/modules/youtube-player";
+import { useYouTUbe } from "@/scripts/modules/youtube-player";
 import { START, STOP } from "@/scripts/modules/switch-bg-animation";
 import { mvListData } from "@/constants/mv-list-data";
 
@@ -6,6 +6,7 @@ const container = document.querySelector('#container')
 const movieSwitchTriggers = document.querySelectorAll('[data-movie-trigger]')
 const keywordsToggle = document.querySelector('[data-keywords-trigger]')
 const keywordsLists = document.querySelectorAll('[data-keywords-list]')
+const youtubePlayer = useYouTUbe()
 
 // 最初に表示しておく動画ID
 const defaultVideoId = mvListData[0].id
@@ -21,10 +22,10 @@ const updateStateVideoId = (videoId: string) => {
 
 // YouTubeプレーヤー初期化
 const initYouTubePlayer = async () => {
-  return await setYouTubePlayer({
+  return await youtubePlayer.set({
     elementId: 'player',
     videoId: defaultVideoId
-  });
+  })
 }
 
 const setDefaultVideo = () => {
